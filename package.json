@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/EdgarSpickerman/build-pipeline/issues"
   },
-  "homepage": "https://github.com/EdgarSpickerman/build-pipeline#readme"
+  "homepage": "https://github.com/EdgarSpickerman/build-pipeline#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-imagemin": "^3.4.0"
+  }
 }
