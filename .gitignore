@@ -286,3 +286,10 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+
+.DS_Store
+.sass_cache
+Dist/
+node_modules/
+*.map
