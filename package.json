@@ -1,0 +1,19 @@
+{
+  "name": "build-pipeline",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EdgarSpickerman/build-pipeline.git"
+  },
+  "author": "Edgar Spickerman Jr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EdgarSpickerman/build-pipeline/issues"
+  },
+  "homepage": "https://github.com/EdgarSpickerman/build-pipeline#readme"
+}
