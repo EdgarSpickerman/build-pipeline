@@ -7,7 +7,8 @@ const gulp = require('gulp'),
     sass = require('gulp-sass'),
     replace = require('gulp-replace'),
     del = require('del'),
-    runSeq =require('run-sequence'),
+    runSeq = require('run-sequence'),
+    browserSync = require('browser-sync').create();
     gConfig = require('./gulpConfig'),
     sources = gConfig.paths.sources,
     destinations = gConfig.paths.destinations;
@@ -97,4 +98,8 @@ gulp.task('build', ['clean'], (callback) => {
     runSeq(['images','icons','styles','scripts'], callback);
 });
 
-gulp.task('default', ['build']);
+gulp.task('serve', ['build'],() => {
+    browserSync.init({ server: { baseDir: destinations.server } });
+});
+
+gulp.task('default', ['build','serve','watch']);
