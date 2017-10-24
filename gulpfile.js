@@ -5,7 +5,9 @@ const gulp = require('gulp'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     sass = require('gulp-sass'),
-    replace=require('gulp-replace'),
+    replace = require('gulp-replace'),
+    del = require('del'),
+    runSeq =require('run-sequence'),
     gConfig = require('./gulpConfig'),
     sources = gConfig.paths.sources,
     destinations = gConfig.paths.destinations;
@@ -17,8 +19,8 @@ const gulp = require('gulp'),
 const html = () => {
     gulp.src(sources.html)
         .pipe(useref())
-        .pipe(replace('images','content')) //can also be achieved via jquery or vanilla JS
-        .pipe(gulp.dest(destinations.html))
+        .pipe(replace('images', 'content')) //can also be achieved via jquery or vanilla JS
+        .pipe(gulp.dest(destinations.html));
 };
 
 gulp.task('htmlJS', ['concatJS'], html);
@@ -43,7 +45,7 @@ gulp.task('images',() => {
 // Icon movement
 gulp.task('icons', () => {
     gulp.src(sources.icons)
-        .pipe(gulp.dest(destinations.icons))
+        .pipe(gulp.dest(destinations.icons));
 });
 
 
@@ -53,7 +55,7 @@ gulp.task('icons', () => {
 // Javascript movement
 gulp.task('scripts', ['htmlJS'], () => {
     gulp.src(sources.scripts)
-        .pipe(gulp.dest(destinations.scripts))
+        .pipe(gulp.dest(destinations.scripts));
 });
 
 //Javascript Concatation,Minificication,Sourcemaps
@@ -63,7 +65,7 @@ gulp.task('concatJS', () => {
         .pipe(concat('global.js'))
         .pipe(uglify())
         .pipe(maps.write('./'))
-        .pipe(gulp.dest(destinations.jsFolder))
+        .pipe(gulp.dest(destinations.jsFolder));
 });
 
 
@@ -79,10 +81,18 @@ gulp.task('styles', ['htmlSass'], () => {
 gulp.task('compileSass', () => {
     gulp.src(sources.sass)
         .pipe(maps.init())
-        .pipe(sass({ outputStyle: 'compressed', outFile:'global.css' }))
+        .pipe(sass({ outputStyle: 'compressed', outFile: 'global.css' }))
         .pipe(maps.write('./'))
-        .pipe(gulp.dest(destinations.cssFolder))
+        .pipe(gulp.dest(destinations.cssFolder));
 });
 
 
 /**************************************OTHER*********************************/
+
+
+//remove the dist folder
+gulp.task('clean', () => del(destinations.server));
+
+gulp.task('build', ['clean'], (callback) => {
+    runSeq(['images','icons','styles','scripts'], callback);
+});
