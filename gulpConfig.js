@@ -7,7 +7,8 @@ module.exports = {
             sass: 'src/sass/**/*.scss',
             scripts: 'dist/scripts/all.min.js',
             styles: 'dist/styles/all.min.css',
-            icons:'src/icons/**'
+            icons: 'src/icons/**',
+            server:'src'
         },
         destinations: {
             images: 'dist/content',
@@ -16,7 +17,8 @@ module.exports = {
             cssFolder: 'src/css',
             scripts: 'dist/scripts',
             styles: 'dist/styles',
-            icons:'dist/icons'
+            icons: 'dist/icons',
+            server:'dist'
         }
     }
 };
