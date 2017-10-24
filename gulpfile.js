@@ -18,7 +18,7 @@ const gulp = require('gulp'),
 
 //html movement and concating all css and js tags/scripts, image replacement
 const html = () => {
-    gulp.src(sources.html)
+    return gulp.src(sources.html)
         .pipe(useref())
         .pipe(replace('images', 'content')) //can also be achieved via jquery or vanilla JS
         .pipe(gulp.dest(destinations.html));
@@ -77,10 +77,11 @@ gulp.task('concatJS', () => {
 gulp.task('styles', ['htmlSass'], () => {
     gulp.src(sources.styles)
         .pipe(gulp.dest(destinations.styles))
+        .pipe(browserSync.reload({ stream: true }));
 });
 
 gulp.task('compileSass', () => {
-    gulp.src(sources.sass)
+   return gulp.src(sources.sass)
         .pipe(maps.init())
         .pipe(sass({ outputStyle: 'compressed', outFile: 'global.css' }))
         .pipe(maps.write('./'))
@@ -98,8 +99,14 @@ gulp.task('build', ['clean'], (callback) => {
     runSeq(['images','icons','styles','scripts'], callback);
 });
 
-gulp.task('serve', ['build'],() => {
+gulp.task('serve', [],() => {
     browserSync.init({ server: { baseDir: destinations.server } });
+});
+
+gulp.task('watch', ['serve'],() => {
+    gulp.watch(sources.sass, ['styles']);
+    //gulp.watch('', []);
+    //gulp.watch('', []);
 });
 
 gulp.task('default', ['build','serve','watch']);
