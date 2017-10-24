@@ -2,11 +2,12 @@ module.exports = {
     paths: {
         sources: {
             images: 'src/images/**',
-            js: ['!src/js/global.js', 'src/js/**/*.js'],
             html: 'src/*.html',
+            js: ['!src/js/global.js', 'src/js/**/*.js'],
             sass: 'src/sass/**/*.scss',
+            scripts: 'dist/scripts/all.min.js',
             styles: 'dist/styles/all.min.css',
-            scripts:'dist/scripts/all.min.js'
+            icons:'src/icons/**'
         },
         destinations: {
             images: 'dist/content',
@@ -14,7 +15,8 @@ module.exports = {
             jsFolder: 'src/js',
             cssFolder: 'src/css',
             scripts: 'dist/scripts',
-            styles:'dist/styles'
+            styles: 'dist/styles',
+            icons:'dist/icons'
         }
     }
 };

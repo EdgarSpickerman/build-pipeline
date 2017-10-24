@@ -39,7 +39,10 @@ gulp.task('images',() => {
 /**************************************ICONS*****************************/
 
 
-
+gulp.task('icons', () => {
+    gulp.src(sources.icons)
+        .pipe(gulp.dest(destinations.icons))
+});
 
 
 /**************************************JAVASCRIPT*****************************/
