@@ -5,6 +5,7 @@ const gulp = require('gulp'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     sass = require('gulp-sass'),
+    replace=require('gulp-replace'),
     gConfig = require('./gulpConfig'),
     sources = gConfig.paths.sources,
     destinations = gConfig.paths.destinations;
@@ -12,10 +13,11 @@ const gulp = require('gulp'),
 
 /**************************************HTML*****************************/
 
-
+//html movement and concating all css and js tags/scripts, image replacement
 const html = () => {
     gulp.src(sources.html)
         .pipe(useref())
+        .pipe(replace('images','content')) //can also be achieved via jquery or vanilla JS
         .pipe(gulp.dest(destinations.html))
 };
 
@@ -27,7 +29,7 @@ gulp.task('htmlSass', ['compileSass'], html);
 
 /**************************************IMAGES*****************************/
 
-
+//image movement and optimizing
 gulp.task('images',() => {
     gulp.src(sources.images)
         .pipe(imageMin())
@@ -38,7 +40,7 @@ gulp.task('images',() => {
 
 /**************************************ICONS*****************************/
 
-
+// Icon movement
 gulp.task('icons', () => {
     gulp.src(sources.icons)
         .pipe(gulp.dest(destinations.icons))
