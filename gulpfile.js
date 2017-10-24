@@ -96,3 +96,5 @@ gulp.task('clean', () => del(destinations.server));
 gulp.task('build', ['clean'], (callback) => {
     runSeq(['images','icons','styles','scripts'], callback);
 });
+
+gulp.task('default', ['build']);
