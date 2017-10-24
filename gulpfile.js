@@ -28,7 +28,13 @@ gulp.task('htmlJS', ['concatJS'], html);
 
 gulp.task('htmlSass', ['compileSass'], html);
 
-
+gulp.task('html', () => {
+    return gulp.src(sources.html)
+        .pipe(useref())
+        .pipe(replace('images', 'content')) //can also be achieved via jquery or vanilla JS
+        .pipe(gulp.dest(destinations.html))
+        .pipe(browserSync.reload({ stream: true }))
+});
 
 /**************************************IMAGES*****************************/
 
@@ -56,7 +62,8 @@ gulp.task('icons', () => {
 // Javascript movement
 gulp.task('scripts', ['htmlJS'], () => {
     gulp.src(sources.scripts)
-        .pipe(gulp.dest(destinations.scripts));
+        .pipe(gulp.dest(destinations.scripts))
+        .pipe(browserSync.reload({ stream: true }));
 });
 
 //Javascript Concatation,Minificication,Sourcemaps
@@ -105,8 +112,8 @@ gulp.task('serve', [],() => {
 
 gulp.task('watch', ['serve'],() => {
     gulp.watch(sources.sass, ['styles']);
-    //gulp.watch('', []);
-    //gulp.watch('', []);
+    gulp.watch(sources.js, ['scripts']);
+    gulp.watch(sources.html, ['html']);
 });
 
 gulp.task('default', ['build','serve','watch']);
